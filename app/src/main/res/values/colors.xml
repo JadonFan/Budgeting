@@ -2,11 +2,5 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorSurface">#000000</color>
     <color name="colorAccent">#D81B60</color>
-
-    <color name="darkGray">#121212</color>
-    <color name="tonedGray">#434343</color>
-    <color name="lightDeepAquamarine">#50A388</color>
 </resources>
