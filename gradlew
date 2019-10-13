@@ -33,16 +33,16 @@ DEFAULT_JVM_OPTS=""
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
 
-warn () {
+warn () ***REMOVED***
     echo "$*"
-}
+***REMOVED***
 
-die () {
+die () ***REMOVED***
     echo
     echo "$*"
     echo
     exit 1
-}
+***REMOVED***
 
 # OS specific support (must be 'true' or 'false').
 cygwin=false
@@ -155,10 +155,10 @@ if $cygwin ; then
 fi
 
 # Escape application args
-save () {
+save () ***REMOVED***
     for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
     echo " "
-}
+***REMOVED***
 APP_ARGS=$(save "$@")
 
 # Collect all arguments for the java command, following the shell quoting and substitution rules
