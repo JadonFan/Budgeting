@@ -1,6 +1,6 @@
 package com.example.budgetapp.model
 
-enum class PaymentMethod(private val category: Int) {
+enum class PaymentMethod(private val category: Int) ***REMOVED***
     CASH(0),
     CREDIT_CARD(1),
     DEBIT_CARD(1),
@@ -12,7 +12,7 @@ enum class PaymentMethod(private val category: Int) {
     OTHER(6)
     ;
 
-    fun getCategory(): Int {
+    fun getCategory(): Int ***REMOVED***
         return category
-    }
-}
+***REMOVED***
+***REMOVED***

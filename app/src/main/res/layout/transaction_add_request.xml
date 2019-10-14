@@ -6,13 +6,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-    <com.example.budgetapp.view.CustomMaterialButton
+    <com.google.android.material.button.MaterialButton
             android:id="@+id/addTransactionBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/full_left_right_button_margin"
-            android:layout_marginEnd="@dimen/full_left_right_button_margin"
+            android:gravity="center"
             android:text="@string/add_new_transaction"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:theme="@style/Widget.MaterialComponents.Button"
+            android:textAppearance="@style/Widget.MaterialComponents.Button"
             app:icon="@drawable/calculator"
             app:iconGravity="textStart" />
 

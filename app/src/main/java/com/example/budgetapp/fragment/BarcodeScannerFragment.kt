@@ -23,26 +23,26 @@ import java.util.concurrent.Executor
 // import com.google.android.gms.vision.barcode.Barcode
 // import com.google.android.gms.vision.barcode.BarcodeDetector
 
-class BarcodeScannerFragment: Fragment() {
-    private class MyImageAnalyzer: ImageAnalysis.Analyzer {
+class BarcodeScannerFragment: Fragment() ***REMOVED***
+    private class MyImageAnalyzer: ImageAnalysis.Analyzer ***REMOVED***
         var image: FirebaseVisionImage? = null
 
-        private fun degreesToFirebaseRotation(degrees: Int): Int = when(degrees) {
+        private fun degreesToFirebaseRotation(degrees: Int): Int = when(degrees) ***REMOVED***
             0 -> FirebaseVisionImageMetadata.ROTATION_0
             90 -> FirebaseVisionImageMetadata.ROTATION_90
             180 -> FirebaseVisionImageMetadata.ROTATION_180
             270 -> FirebaseVisionImageMetadata.ROTATION_270
             else -> throw Exception("Rotation must be 0, 90, 180, 270")
-        }
+***REMOVED***
 
-        override fun analyze(imageProxy: ImageProxy?, rotationDegrees: Int) {
+        override fun analyze(imageProxy: ImageProxy?, rotationDegrees: Int) ***REMOVED***
             val mediaImage = imageProxy?.image
             val imageRotation = degreesToFirebaseRotation(rotationDegrees)
-            if (mediaImage != null) {
+            if (mediaImage != null) ***REMOVED***
                 this.image = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
-            }
-        }
-    }
+    ***REMOVED***
+***REMOVED***
+***REMOVED***
 
     private var lensFacing = CameraX.LensFacing.BACK
     private var cameraPreviewView: TextureView? = null
@@ -52,95 +52,95 @@ class BarcodeScannerFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View? ***REMOVED***
         return inflater.inflate(R.layout.camera_viewer_layout, container, false)
-    }
+***REMOVED***
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) ***REMOVED***
         super.onViewCreated(view, savedInstanceState)
-        cameraPreviewView?.post {
+        cameraPreviewView?.post ***REMOVED***
             startCamera()
-        }
-    }
+***REMOVED***
+***REMOVED***
 
-    private fun startCamera() {
-        val metrics = DisplayMetrics().also {
+    private fun startCamera() ***REMOVED***
+        val metrics = DisplayMetrics().also ***REMOVED***
             cameraPreviewView?.display!!.getRealMetrics(it)
-        }
+***REMOVED***
         val screenSize = Size(metrics.widthPixels, metrics.heightPixels)
         val screenAspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
 
-        val previewConfig = PreviewConfig.Builder().apply {
+        val previewConfig = PreviewConfig.Builder().apply ***REMOVED***
             setLensFacing(lensFacing)
             setTargetResolution(screenSize)
             setTargetAspectRatio(AspectRatio.RATIO_16_9)
             setTargetRotation(activity?.windowManager?.defaultDisplay!!.rotation)
             setTargetRotation(cameraPreviewView?.display!!.rotation)
-        }.build()
+***REMOVED***.build()
 
         val preview = Preview(previewConfig)
-        preview.setOnPreviewOutputUpdateListener {
+        preview.setOnPreviewOutputUpdateListener ***REMOVED***
             cameraPreviewView?.surfaceTexture = it.surfaceTexture
             updateTransform()
-        }
+***REMOVED***
 
-        val imageCaptureConfig = ImageCaptureConfig.Builder().apply {
+        val imageCaptureConfig = ImageCaptureConfig.Builder().apply ***REMOVED***
             setLensFacing(lensFacing)
             setTargetAspectRatio(AspectRatio.RATIO_16_9)
             setTargetRotation(cameraPreviewView?.display!!.rotation)
             setCaptureMode(ImageCapture.CaptureMode.MAX_QUALITY)
-        }.build()
+***REMOVED***.build()
 
         val imageCapture = ImageCapture(imageCaptureConfig)
-        activity?.findViewById<MaterialButton>(R.id.scanTransactionBtn)!!.setOnClickListener {
-            imageCapture.takePicture({}, object: ImageCapture.OnImageCapturedListener() {
+        activity?.findViewById<MaterialButton>(R.id.scanTransactionBtn)!!.setOnClickListener ***REMOVED***
+            imageCapture.takePicture(***REMOVED******REMOVED***, object: ImageCapture.OnImageCapturedListener() ***REMOVED***
                 override fun onError(
                     imageCaptureError: ImageCapture.ImageCaptureError,
                     message: String,
                     cause: Throwable?
-                ) {
+                ) ***REMOVED***
                     Toast.makeText(context, "Photo could not be taken due to $message", Toast.LENGTH_SHORT).show()
-                }
+        ***REMOVED***
 
-                override fun onCaptureSuccess(image: ImageProxy?, rotationDegrees: Int) {
+                override fun onCaptureSuccess(image: ImageProxy?, rotationDegrees: Int) ***REMOVED***
                     super.onCaptureSuccess(image, rotationDegrees)
                     processBarcode(image, rotationDegrees)
-                }
-            })
-        }
-    }
+        ***REMOVED***
+    ***REMOVED***)
+***REMOVED***
+***REMOVED***
 
-    private fun updateTransform() {
+    private fun updateTransform() ***REMOVED***
         val matrix = Matrix()
         val centreX = cameraPreviewView!!.width / 2f
         val centreY = cameraPreviewView!!.height / 2f
         val view = cameraPreviewView
 
-        val rotationDegrees = when (view?.display!!.rotation) {
+        val rotationDegrees = when (view?.display!!.rotation) ***REMOVED***
             Surface.ROTATION_0 -> 0
             Surface.ROTATION_90 -> 90
             Surface.ROTATION_180 -> 180
             Surface.ROTATION_270 -> 270
             else -> return
-        }
+***REMOVED***
         matrix.postRotate(-rotationDegrees.toFloat(), centreX, centreY)
         view.setTransform(matrix)
-    }
+***REMOVED***
 
-    private fun processBarcode(image: ImageProxy?, rotationDegrees: Int) {
+    private fun processBarcode(image: ImageProxy?, rotationDegrees: Int) ***REMOVED***
 //        val detector = BarcodeDetector.Builder(context)
 //            .setBarcodeFormats(Barcode.DATA_MATRIX or Barcode.QR_CODE)
 //            .build()
-//        if (!detector.isOperational) {
+//        if (!detector.isOperational) ***REMOVED***
 //            Toast.makeText(context, "Unable to set up the detector!", Toast.LENGTH_SHORT).show()
 //            return
-//        }
+//***REMOVED***
 //
 //        val barcodes = SparseArray<Barcode>()
 //        val productDetails = HashMap<String,Barcode.UrlBookmark>()
-//        for (barcode in barcodes.valueIterator()) {
+//        for (barcode in barcodes.valueIterator()) ***REMOVED***
 //            productDetails[barcode.rawValue] = barcode.url
-//        }
+//***REMOVED***
 
         val mia = MyImageAnalyzer()
         mia.analyze(image, rotationDegrees)
@@ -149,35 +149,35 @@ class BarcodeScannerFragment: Fragment() {
 //            .build()
         val detector = FirebaseVision.getInstance().visionBarcodeDetector
         val result = detector.detectInImage(mia.image as FirebaseVisionImage)
-            .addOnSuccessListener {
-                for (barcode in it) {
-                    when (barcode.valueType) {
+            .addOnSuccessListener ***REMOVED***
+                for (barcode in it) ***REMOVED***
+                    when (barcode.valueType) ***REMOVED***
                         FirebaseVisionBarcode.FORMAT_UPC_A, FirebaseVisionBarcode.FORMAT_UPC_E,
                             FirebaseVisionBarcode.FORMAT_EAN_8, FirebaseVisionBarcode.FORMAT_EAN_13,
-                            FirebaseVisionBarcode.TYPE_ISBN -> {
-                            val url = URL("https://api.barcodelookup.com/v2/products?barcode=${barcode.rawValue}" +
+                            FirebaseVisionBarcode.TYPE_ISBN -> ***REMOVED***
+                            val url = URL("https://api.barcodelookup.com/v2/products?barcode=$***REMOVED***barcode.rawValue***REMOVED***" +
                                     "&formatted=y&key=1") // TODO store API key securely
                             val jsonObject = JSONObject(url.readText())
-                            for (index in 0 until jsonObject.getJSONArray("Stores").length()) {
+                            for (index in 0 until jsonObject.getJSONArray("Stores").length()) ***REMOVED***
                                 val store: String = jsonObject.getJSONArray("Stores")[index] as String
                                 pTransactions.add(Integer.parseInt(JSONObject(store).get("store_price") as String))
-                            }
-                        }
-                        FirebaseVisionBarcode.TYPE_URL -> {
+                    ***REMOVED***
+                ***REMOVED***
+                        FirebaseVisionBarcode.TYPE_URL -> ***REMOVED***
                             val url = barcode.url!!.url
-                        }
-                        else -> {
+                ***REMOVED***
+                        else -> ***REMOVED***
                             Toast.makeText(context, "Currently not available", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-            .addOnFailureListener {
+                ***REMOVED***
+            ***REMOVED***
+        ***REMOVED***
+    ***REMOVED***
+            .addOnFailureListener ***REMOVED***
 
-            }
+    ***REMOVED***
 
-        if (result.isSuccessful) {
+        if (result.isSuccessful) ***REMOVED***
             Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
-        }
-    }
-}
+***REMOVED***
+***REMOVED***
+***REMOVED***

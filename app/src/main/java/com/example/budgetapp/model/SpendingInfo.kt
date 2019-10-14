@@ -1,17 +1,18 @@
 package com.example.budgetapp.model
 
+import android.icu.util.Calendar
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
+import java.sql.Time
 
 @Entity
 data class SpendingInfo(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "itemName") var itemName: String,
-    @ColumnInfo(name = "amount") var amount: Float,
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "identifier") var identifier: String,
+    @ColumnInfo(name = "amount") var amount: Double,
     @ColumnInfo(name = "type") var type: String,
     @ColumnInfo(name = "location") var location: String,
-    @ColumnInfo(name = "purchaseTime") var purchaseTime: Date,
-    @ColumnInfo(name = "payment_method") var paymentMethod: String
+    @ColumnInfo(name = "time") var time: String,
+    @ColumnInfo(name ="payment_method") var paymentMethod: String
 )
