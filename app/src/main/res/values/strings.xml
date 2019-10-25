@@ -1,14 +1,22 @@
 <resources>
-    <string name="app_name">Budgeting App</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="app_name">Budget Assistant</string>
+
     <string name="report">Report</string>
     <string name="tracker">Tracker</string>
     <string name="add_transaction">Add Transaction</string>
     <string name="add_new_transaction">Add New Transaction</string>
-    <string name="manual_input">Manual Input</string>
-    <string name="barcode_scan">Barcode Scan</string>
+    <string name="scan_barcode">Scan Barcode</string>
     <string name="amount">Amount</string>
     <string name="dollar_sign">$</string>
+    <string name="dollar_money_format">$%.2f</string>
     <string name="item_name">Item Name</string>
     <string name="location">Location</string>
     <string name="map_exact_pinpoint">pinpoint location on Google Maps</string>
+    <string name="delete">Delete</string>
+    <string name="confirm_delete">Confirm Delete</string>
+    <string name="delete_transaction_ask">Are you sure you want to remove this transaction?</string>
+    <string name="news_amp_tips"><![CDATA[News & Tips]]></string>
 </resources>
