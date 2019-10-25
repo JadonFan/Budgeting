@@ -12,13 +12,13 @@ import com.google.android.material.button.MaterialButton
 
 @RequiresApi(Build.VERSION_CODES.M)
 class CustomMaterialButton(ctx: Context, attrs: AttributeSet): MaterialButton(ctx, attrs,
-    R.style.Widget_MaterialComponents_Button) {
-    init {
+    R.style.Widget_MaterialComponents_Button) ***REMOVED***
+    init ***REMOVED***
         // TODO move these hardcoded values into the dimen XML file
         this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
         this.setTextAppearance(R.style.Widget_MaterialComponents_Button)
         this.setTextColor(resources.getColor(android.R.color.white, ctx.theme))
         this.setPadding(0, 30, 0, 30)
         this.gravity = Gravity.CENTER
-    }
-}
+***REMOVED***
+***REMOVED***
