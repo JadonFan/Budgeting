@@ -1,15 +1,18 @@
-package com.example.budgetapp
+package com.example.budgetapp.view
 
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.TextView
+import com.example.budgetapp.R
 
 class TypefacedTextView(context: Context?, attrs: AttributeSet?) : TextView(context, attrs) {
     init {
         if (!isInEditMode) {
-            val styledAttrs: TypedArray? = context?.obtainStyledAttributes(attrs, R.styleable.TypefacedTextView)
+            val styledAttrs: TypedArray? = context?.obtainStyledAttributes(attrs,
+                R.styleable.TypefacedTextView
+            )
             val fontName: String? = styledAttrs?.getString(R.styleable.TypefacedTextView_typeface)
             styledAttrs?.recycle()
 

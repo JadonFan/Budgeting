@@ -1,12 +1,11 @@
-package com.example.budgetapp
+package com.example.budgetapp.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import com.example.budgetapp.R
 import com.example.budgetapp.fragment.ReportFragment
-import com.example.budgetapp.fragment.TrackerFragment
+import com.example.budgetapp.fragment.TransactionTrackerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -19,22 +18,28 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<BottomNavigationView>(R.id.navbar).setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.my_report -> {
-                    Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show()
-                    showFreshFragment(ReportFragment())
-                }
-                R.id.spending_tracker -> {
-                    Toast.makeText(this, "WORLD", Toast.LENGTH_SHORT).show()
-                    showFreshFragment(TrackerFragment())
-                }
+                R.id.myWeeklyReport -> showFreshFragment(ReportFragment())
+                R.id.spendingTracker -> showFreshFragment(TransactionTrackerFragment())
+                R.id.newsTipsFeed -> {}
             }
             true
         }
     }
 
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
     private fun showFreshFragment(fragment: Fragment) {
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.keyDisplay, fragment)
-        ft.commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.keyDisplay, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

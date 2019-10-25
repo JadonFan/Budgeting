@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".activity.MainActivity">
 
     <LinearLayout
             android:id="@+id/keyDisplay"
@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/holo_blue_dark"
             app:menu="@menu/my_navigation_items" />
 
 </RelativeLayout>
