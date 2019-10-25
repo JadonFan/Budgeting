@@ -11,55 +11,55 @@ import com.example.budgetapp.model.SpendingInfo
 
 class GroupedSpendingListAdapter(private var context: Context?, private var spendingRecord: List<String>,
                                  private var spendingMap: Map<String, SpendingInfo>)
-    : BaseExpandableListAdapter() {
+    : BaseExpandableListAdapter() ***REMOVED***
 
-    override fun getGroup(groupPosition: Int): Any {
+    override fun getGroup(groupPosition: Int): Any ***REMOVED***
         return spendingRecord[groupPosition]
-    }
+***REMOVED***
 
-    override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
+    override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean ***REMOVED***
         return true
-    }
+***REMOVED***
 
-    override fun hasStableIds(): Boolean {
+    override fun hasStableIds(): Boolean ***REMOVED***
         return true
-    }
+***REMOVED***
 
     override fun getGroupView(
         groupPosition: Int,
         isExpanded: Boolean,
         convertView: View?,
         parent: ViewGroup?
-    ): View {
+    ): View ***REMOVED***
         var view = convertView ?: View(context)
         val spendingIdentifier: String = getGroup(groupPosition) as String
         val amount: Float = spendingMap.getValue(spendingIdentifier).amount
         val location: String = spendingMap.getValue(spendingIdentifier).location
 
-        if (convertView == null) {
+        if (convertView == null) ***REMOVED***
             val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.transaction_item_view, parent, false)
-        }
-        view.findViewById<TextView>(R.id.currItemNameText).apply {
+***REMOVED***
+        view.findViewById<TextView>(R.id.currItemNameText).apply ***REMOVED***
             text = spendingIdentifier
-        }
-        view.findViewById<TextView>(R.id.currAmountText).apply {
+***REMOVED***
+        view.findViewById<TextView>(R.id.currAmountText).apply ***REMOVED***
             text = amount.toString()
-        }
-        view.findViewById<TextView>(R.id.currLocationText).apply {
+***REMOVED***
+        view.findViewById<TextView>(R.id.currLocationText).apply ***REMOVED***
             text = location
-        }
+***REMOVED***
 
         return view
-    }
+***REMOVED***
 
-    override fun getChild(groupPosition: Int, childPosition: Int): SpendingInfo? {
+    override fun getChild(groupPosition: Int, childPosition: Int): SpendingInfo? ***REMOVED***
         return spendingMap[spendingRecord[groupPosition]]
-    }
+***REMOVED***
 
-    override fun getGroupId(groupPosition: Int): Long {
+    override fun getGroupId(groupPosition: Int): Long ***REMOVED***
         return groupPosition.toLong()
-    }
+***REMOVED***
 
     override fun getChildView(
         groupPosition: Int,
@@ -67,26 +67,26 @@ class GroupedSpendingListAdapter(private var context: Context?, private var spen
         isLastChild: Boolean,
         convertView: View?,
         parent: ViewGroup?
-    ): View {
+    ): View ***REMOVED***
         var view = convertView ?: View(context)
 
-        if (convertView == null) {
+        if (convertView == null) ***REMOVED***
             val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.transaction_item_view, parent, false)
-        }
+***REMOVED***
 
         return view
-    }
+***REMOVED***
 
-    override fun getChildId(groupPosition: Int, childPosition: Int): Long {
+    override fun getChildId(groupPosition: Int, childPosition: Int): Long ***REMOVED***
         return childPosition.toLong()
-    }
+***REMOVED***
 
-    override fun getGroupCount(): Int {
+    override fun getGroupCount(): Int ***REMOVED***
         return spendingRecord.size
-    }
+***REMOVED***
 
-    override fun getChildrenCount(groupPosition: Int): Int {
+    override fun getChildrenCount(groupPosition: Int): Int ***REMOVED***
         return 1
-    }
-}
+***REMOVED***
+***REMOVED***

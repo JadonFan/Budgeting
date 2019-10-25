@@ -8,38 +8,38 @@ import com.example.budgetapp.fragment.ReportFragment
 import com.example.budgetapp.fragment.TransactionTrackerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+class MainActivity : AppCompatActivity() ***REMOVED***
+    override fun onCreate(savedInstanceState: Bundle?) ***REMOVED***
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         supportActionBar?.setTitle(R.string.app_name)
         showFreshFragment(ReportFragment())
 
-        findViewById<BottomNavigationView>(R.id.navbar).setOnNavigationItemSelectedListener {
-            when (it.itemId) {
+        findViewById<BottomNavigationView>(R.id.navbar).setOnNavigationItemSelectedListener ***REMOVED***
+            when (it.itemId) ***REMOVED***
                 R.id.myWeeklyReport -> showFreshFragment(ReportFragment())
                 R.id.spendingTracker -> showFreshFragment(TransactionTrackerFragment())
-                R.id.newsTipsFeed -> {}
-            }
+                R.id.newsTipsFeed -> ***REMOVED******REMOVED***
+    ***REMOVED***
             true
-        }
-    }
+***REMOVED***
+***REMOVED***
 
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
+    override fun onBackPressed() ***REMOVED***
+        if (supportFragmentManager.backStackEntryCount > 0) ***REMOVED***
             supportFragmentManager.popBackStack()
-        } else {
+***REMOVED*** else ***REMOVED***
             super.onBackPressed()
-        }
-    }
+***REMOVED***
+***REMOVED***
 
 
-    private fun showFreshFragment(fragment: Fragment) {
+    private fun showFreshFragment(fragment: Fragment) ***REMOVED***
         supportFragmentManager.beginTransaction()
             .replace(R.id.keyDisplay, fragment)
             .addToBackStack(null)
             .commit()
-    }
-}
+***REMOVED***
+***REMOVED***

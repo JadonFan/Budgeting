@@ -5,17 +5,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ExpandableListView
+    <ListView
             android:id="@+id/recentSpendingList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+    <ExpandableListView
+            android:id="@+id/groupedSpendingList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
     <include
             layout="@layout/transaction_add_request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
-
 
     <!--    <EditText-->
 <!--            android:layout_width="match_parent"-->
