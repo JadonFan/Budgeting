@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/my_report"
+    <item android:id="@+id/myWeeklyReport"
             android:title="@string/report"
             android:icon="@drawable/report" />
-    <item android:id="@+id/spending_tracker"
+    <item android:id="@+id/spendingTracker"
             android:title="@string/tracker"
+            android:icon="@drawable/calculator"/>
+    <item android:id="@+id/newsTipsFeed"
+            android:title="@string/news_amp_tips"
             android:icon="@drawable/calculator"/>
 </menu>
