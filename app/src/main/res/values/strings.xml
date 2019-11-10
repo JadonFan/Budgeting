@@ -1,7 +1,4 @@
 <resources>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-
     <string name="app_name">Budget Assistant</string>
 
     <string name="report">Report</string>
@@ -19,4 +16,8 @@
     <string name="confirm_delete">Confirm Delete</string>
     <string name="delete_transaction_ask">Are you sure you want to remove this transaction?</string>
     <string name="news_amp_tips"><![CDATA[News & Tips]]></string>
+    <string name="no_transactions_msg">No transactions recorded. Add some!</string>
+    <string name="overview">Overview</string>
+    <string name="breakdown">Breakdown</string>
+    <string name="archived">Archived</string>
 </resources>

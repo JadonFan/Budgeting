@@ -30,51 +30,6 @@ class TransactionTrackerFragment: Fragment() ***REMOVED***
     private var transactionLog: ArrayList<SpendingInfo> = ArrayList()
 
 
-    private class RetrieveTransactionsTask: AsyncTask<Context, Void, Pair<List<String>, HashMap<String, SpendingInfo>>>() ***REMOVED***
-        override fun doInBackground(vararg params: Context): Pair<List<String>, HashMap<String, SpendingInfo>> ***REMOVED***
-            val spendingRecordDb = DatabaseManager(params[0]).getSpendingInfoDb()
-            val spendingRecord = ArrayList(spendingRecordDb!!.spendingInfoDao().getItemName())
-            val spendingDetails = ArrayList(spendingRecordDb.spendingInfoDao().getAll())
-            val spendingMap = HashMap<String,SpendingInfo>()
-            for (index in 0 until spendingRecord.size) ***REMOVED***
-                spendingMap[spendingRecord[index]] = spendingDetails[index]
-    ***REMOVED***
-
-            return Pair(spendingRecord, spendingMap)
-***REMOVED***
-***REMOVED***
-
-
-    private data class RemoveTransactionInfo(val target: SpendingInfo, val ctx: Context)
-
-    private class RemoveTransactionTask: AsyncTask<RemoveTransactionInfo, Void, Void>() ***REMOVED***
-        override fun doInBackground(vararg params: RemoveTransactionInfo): Void? ***REMOVED***
-            for (param in params) ***REMOVED***
-                val spendingRecordDb = DatabaseManager(param.ctx).getSpendingInfoDb()
-                spendingRecordDb!!.spendingInfoDao().delete(param.target)
-    ***REMOVED***
-            return null
-***REMOVED***
-***REMOVED***
-
-    private fun removeTransaction(recentAdapter: SwipeActionAdapter, position: Int) ***REMOVED***
-        val target: SpendingInfo = recentAdapter.getItem(position) as SpendingInfo
-        AlertDialog.Builder(context)
-            .setTitle(R.string.confirm_delete)
-            .setMessage(R.string.delete_transaction_ask)
-            .setPositiveButton(R.string.yes) ***REMOVED*** _, _ ->
-                activity?.runOnUiThread ***REMOVED***
-                    RemoveTransactionTask().execute(RemoveTransactionInfo(target, context as Context))
-                    transactionLog.remove(target)
-                    recentAdapter.notifyDataSetChanged()
-        ***REMOVED***
-    ***REMOVED***
-            .setNegativeButton(R.string.no) ***REMOVED*** _, _ -> ***REMOVED***
-            .create()
-            .show()
-***REMOVED***
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? ***REMOVED***
         return inflater.inflate(R.layout.spending_tracker_layout, container, false)
 ***REMOVED***
@@ -93,6 +48,7 @@ class TransactionTrackerFragment: Fragment() ***REMOVED***
         view.findViewById<ListView>(R.id.recentSpendingList).apply ***REMOVED***
             recentAdapter.setListView(this)
             adapter = recentAdapter
+            emptyView = view.findViewById(R.id.emptyTrackText)
 ***REMOVED***
         recentAdapter.addBackground(SwipeDirection.DIRECTION_FAR_LEFT, R.layout.left_swipe_layout)
             .addBackground(SwipeDirection.DIRECTION_NORMAL_LEFT, R.layout.left_swipe_layout)
@@ -134,5 +90,51 @@ class TransactionTrackerFragment: Fragment() ***REMOVED***
                 ?.addToBackStack(null)
                 ?.commit()
 ***REMOVED***
+***REMOVED***
+
+
+    private class RetrieveTransactionsTask: AsyncTask<Context, Void, Pair<List<String>, HashMap<String, SpendingInfo>>>() ***REMOVED***
+        override fun doInBackground(vararg params: Context): Pair<List<String>, HashMap<String, SpendingInfo>> ***REMOVED***
+            val spendingRecordDb = DatabaseManager(params[0]).getSpendingInfoDb()
+            val spendingRecord = ArrayList(spendingRecordDb!!.spendingInfoDao().getItemName())
+            val spendingDetails = ArrayList(spendingRecordDb.spendingInfoDao().getAll())
+            val spendingMap = HashMap<String,SpendingInfo>()
+            for (index in 0 until spendingRecord.size) ***REMOVED***
+                spendingMap[spendingRecord[index]] = spendingDetails[index]
+    ***REMOVED***
+
+            return Pair(spendingRecord, spendingMap)
+***REMOVED***
+***REMOVED***
+
+
+    private data class RemoveTransactionInfo(val target: SpendingInfo, val ctx: Context)
+
+    private class RemoveTransactionTask: AsyncTask<RemoveTransactionInfo, Void, Void>() ***REMOVED***
+        override fun doInBackground(vararg params: RemoveTransactionInfo): Void? ***REMOVED***
+            for (param in params) ***REMOVED***
+                val spendingRecordDb = DatabaseManager(param.ctx).getSpendingInfoDb()
+                spendingRecordDb!!.spendingInfoDao().delete(param.target)
+    ***REMOVED***
+            return null
+***REMOVED***
+***REMOVED***
+
+
+    private fun removeTransaction(recentAdapter: SwipeActionAdapter, position: Int) ***REMOVED***
+        val target: SpendingInfo = recentAdapter.getItem(position) as SpendingInfo
+        AlertDialog.Builder(context)
+            .setTitle(R.string.confirm_delete)
+            .setMessage(R.string.delete_transaction_ask)
+            .setPositiveButton(android.R.string.yes) ***REMOVED*** _, _ ->
+                activity?.runOnUiThread ***REMOVED***
+                    RemoveTransactionTask().execute(RemoveTransactionInfo(target, context as Context))
+                    transactionLog.remove(target)
+                    recentAdapter.notifyDataSetChanged()
+        ***REMOVED***
+    ***REMOVED***
+            .setNegativeButton(android.R.string.no) ***REMOVED*** _, _ -> ***REMOVED***
+            .create()
+            .show()
 ***REMOVED***
 ***REMOVED***

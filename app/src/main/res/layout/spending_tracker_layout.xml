@@ -10,6 +10,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+    <TextView
+            android:id="@+id/emptyTrackText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_transactions_msg"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
     <ExpandableListView
             android:id="@+id/groupedSpendingList"
             android:layout_width="match_parent"
