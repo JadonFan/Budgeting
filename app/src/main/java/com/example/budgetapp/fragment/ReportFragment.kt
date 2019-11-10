@@ -26,6 +26,7 @@ class ReportFragment: Fragment() ***REMOVED***
         return inflater.inflate(R.layout.spending_report_layout, container, false)
 ***REMOVED***
 
+
     private class FindWeeklySpendingTask: AsyncTask<Context, Void, Float>() ***REMOVED***
         override fun doInBackground(vararg params: Context?): Float ***REMOVED***
             val weekRange: Range<Date> = DateUtils.findWeekRange()
@@ -33,6 +34,7 @@ class ReportFragment: Fragment() ***REMOVED***
                 .findWeeklySpending(weekRange.lower, weekRange.upper)
 ***REMOVED***
 ***REMOVED***
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) ***REMOVED***
         super.onViewCreated(view, savedInstanceState)
@@ -52,6 +54,11 @@ class ReportFragment: Fragment() ***REMOVED***
                 String.format("Target: <b>$%.2f</b>", targetSpendAmount),
                 HtmlCompat.FROM_HTML_MODE_LEGACY
             )
+***REMOVED***
+        val cal: Calendar = GregorianCalendar.getInstance()
+        view.findViewById<TextView>(R.id.weekText).apply ***REMOVED***
+            typeface = tf
+            text = String.format(getString(R.string.week_order), cal.get(Calendar.WEEK_OF_YEAR))
 ***REMOVED***
 
         val spendingProgress = view.findViewById<CircularProgressBar>(R.id.weeklySpendingProgress)

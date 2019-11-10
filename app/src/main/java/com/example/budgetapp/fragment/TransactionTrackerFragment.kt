@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ExpandableListView
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.budgetapp.R
 import com.example.budgetapp.database.DatabaseManager
@@ -21,6 +18,9 @@ import com.example.budgetapp.view.RecentSpendingListAdapter
 import com.google.android.material.button.MaterialButton
 import com.wdullaer.swipeactionadapter.SwipeActionAdapter
 import com.wdullaer.swipeactionadapter.SwipeDirection
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class TransactionTrackerFragment: Fragment() ***REMOVED***
     companion object ***REMOVED***
