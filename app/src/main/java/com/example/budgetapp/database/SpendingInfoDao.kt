@@ -8,7 +8,7 @@ import com.example.budgetapp.model.SpendingInfo
 import java.util.*
 
 @Dao
-interface SpendingInfoDao ***REMOVED***
+interface SpendingInfoDao {
     @Query("SELECT * FROM spendinginfo")
     fun getAll(): List<SpendingInfo>
 
@@ -26,4 +26,4 @@ interface SpendingInfoDao ***REMOVED***
 
     @Delete
     fun delete(spendingInfo: SpendingInfo)
-***REMOVED***
+}

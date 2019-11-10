@@ -3,33 +3,33 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-android ***REMOVED***
+android {
     compileSdkVersion 28
-    defaultConfig ***REMOVED***
+    defaultConfig {
         applicationId "com.jadon.budgetapp"
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-***REMOVED***
-    buildTypes ***REMOVED***
-        debug ***REMOVED***
+    }
+    buildTypes {
+        debug {
             resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
-***REMOVED***
-        release ***REMOVED***
+        }
+        release {
             minifyEnabled false
             resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-***REMOVED***
-***REMOVED***
-    compileOptions ***REMOVED***
+        }
+    }
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-***REMOVED***
-***REMOVED***
+    }
+}
 
-dependencies ***REMOVED***
+dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core:1.2.0-beta01'
@@ -69,6 +69,6 @@ dependencies ***REMOVED***
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     implementation 'com.wdullaer:swipeactionadapter:2.0.0'
-***REMOVED***
+}
 
 apply plugin: 'com.google.gms.google-services'

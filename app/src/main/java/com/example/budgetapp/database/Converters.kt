@@ -3,14 +3,14 @@ package com.example.budgetapp.database
 import androidx.room.TypeConverter
 import java.util.*
 
-class Converters ***REMOVED***
+class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Long): Date ***REMOVED***
+    fun fromTimestamp(value: Long): Date {
         return Date(value)
-***REMOVED***
+    }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date): Long ***REMOVED***
+    fun dateToTimestamp(date: Date): Long {
         return date.time
-***REMOVED***
-***REMOVED***
+    }
+}

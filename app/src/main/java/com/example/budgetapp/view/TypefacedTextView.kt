@@ -7,20 +7,20 @@ import android.util.AttributeSet
 import android.widget.TextView
 import com.example.budgetapp.R
 
-class TypefacedTextView(context: Context?, attrs: AttributeSet?) : TextView(context, attrs) ***REMOVED***
-    init ***REMOVED***
-        if (!isInEditMode) ***REMOVED***
+class TypefacedTextView(context: Context?, attrs: AttributeSet?) : TextView(context, attrs) {
+    init {
+        if (!isInEditMode) {
             val styledAttrs: TypedArray? = context?.obtainStyledAttributes(attrs,
                 R.styleable.TypefacedTextView
             )
             val fontName: String? = styledAttrs?.getString(R.styleable.TypefacedTextView_typeface)
             styledAttrs?.recycle()
 
-            if (fontName != null) ***REMOVED***
+            if (fontName != null) {
                 val typeface: Typeface = Typeface.createFromAsset(context.assets, fontName)
                 setTypeface(typeface)
-    ***REMOVED***
+            }
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
+        }
+    }
+}
