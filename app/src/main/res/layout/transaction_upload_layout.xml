@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,13 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <!-- TODO use a list adapter -->
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_above="@id/barcodeOptionBtn"
-            android:scrollbars="none">
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/barcode_options_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
                 android:orientation="vertical"
@@ -27,29 +30,21 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/std_text_edit_spacing">
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/item_name"
-                        android:textSize="@dimen/std_menu_text_size"
-                        android:textStyle="bold"
-                        android:gravity="center" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/requestedItemNameText"
+                <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="text"
-                        android:ellipsize="end"
-                        android:paddingBottom="@dimen/std_text_edit_spacing"
-                        android:paddingStart="@dimen/std_text_edit_spacing"
-                        android:paddingEnd="@dimen/std_text_edit_spacing"
-                        android:paddingTop="@dimen/std_text_edit_spacing"
-                        android:background="@android:color/white"
-                        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:textColor="@android:color/black">
-                    <requestFocus />
-                </com.google.android.material.textfield.TextInputEditText>
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundMode="outline"
+                        app:hintTextColor="@android:color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/item_name_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/item_name">
+                        <requestFocus />
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -72,7 +67,7 @@
                         android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/requestedAmountText"
+                            android:id="@+id/item_cost_edit"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="numberDecimal"
@@ -118,7 +113,7 @@
                         android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/requestedLocationText"
+                            android:id="@+id/location_edit"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="9"
@@ -133,7 +128,7 @@
                             android:textColor="@android:color/black" />
 
                     <ImageView
-                            android:id="@+id/pinpointLocationBtn"
+                            android:id="@+id/pinpoint_location_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -152,21 +147,29 @@
     </ScrollView>
 
     <com.example.budgetapp.view.CustomMaterialButton
-            android:id="@+id/barcodeOptionBtn"
-            android:layout_above="@id/manualManageBar"
+            android:id="@+id/barcode_options_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/full_left_right_button_margin"
             android:layout_marginEnd="@dimen/full_left_right_button_margin"
             android:text="@string/scan_barcode"
             app:icon="@drawable/report"
-            app:iconGravity="textStart"/>
+            app:iconGravity="textStart"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/manual_manage_bar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <include
-            android:id="@+id/manualManageBar"
+            android:id="@+id/manual_manage_bar"
             layout="@layout/transaction_add_request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

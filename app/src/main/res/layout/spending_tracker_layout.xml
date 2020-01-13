@@ -5,8 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ListView
-            android:id="@+id/recentSpendingList"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transactionSpendingList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -21,14 +21,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
-
-    <!--    <EditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:inputType="textMultiLine"-->
-<!--            android:hint="@string/add_transaction"-->
-<!--            android:autofillHints="@string/add_transaction"-->
-<!--            tools:targetApi="o" />-->
 
 </RelativeLayout>

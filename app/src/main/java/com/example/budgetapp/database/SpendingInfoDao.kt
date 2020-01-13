@@ -1,5 +1,6 @@
 package com.example.budgetapp.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,9 +9,9 @@ import com.example.budgetapp.model.SpendingInfo
 import java.util.*
 
 @Dao
-interface SpendingInfoDao ***REMOVED***
+interface SpendingInfoDao {
     @Query("SELECT * FROM spendinginfo")
-    fun getAll(): List<SpendingInfo>
+    fun getAll(): LiveData<List<SpendingInfo>>
 
     @Query("SELECT itemName FROM spendinginfo")
     fun getItemName(): List<String>
@@ -26,4 +27,4 @@ interface SpendingInfoDao ***REMOVED***
 
     @Delete
     fun delete(spendingInfo: SpendingInfo)
-***REMOVED***
+}

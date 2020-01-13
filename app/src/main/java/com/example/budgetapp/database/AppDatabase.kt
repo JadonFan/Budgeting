@@ -7,6 +7,6 @@ import com.example.budgetapp.model.SpendingInfo
 
 @Database(entities = [SpendingInfo::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
-abstract class AppDatabase: RoomDatabase() ***REMOVED***
+abstract class AppDatabase: RoomDatabase() {
     abstract fun spendingInfoDao(): SpendingInfoDao
-***REMOVED***
+}

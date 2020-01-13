@@ -8,38 +8,41 @@ import com.example.budgetapp.fragment.ReportFragment
 import com.example.budgetapp.fragment.TransactionTrackerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() ***REMOVED***
-    override fun onCreate(savedInstanceState: Bundle?) ***REMOVED***
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         supportActionBar?.setTitle(R.string.app_name)
-        showFreshFragment(ReportFragment())
 
-        findViewById<BottomNavigationView>(R.id.navbar).setOnNavigationItemSelectedListener ***REMOVED***
-            when (it.itemId) ***REMOVED***
+        findViewById<BottomNavigationView>(R.id.nav_bar).setOnNavigationItemSelectedListener {
+            when (it.itemId) {
                 R.id.myWeeklyReport -> showFreshFragment(ReportFragment())
                 R.id.spendingTracker -> showFreshFragment(TransactionTrackerFragment())
-                R.id.newsTipsFeed -> ***REMOVED******REMOVED***
-    ***REMOVED***
+                R.id.newsTipsFeed -> {}
+            }
             true
-***REMOVED***
-***REMOVED***
+        }
+
+        if (savedInstanceState == null) {
+            showFreshFragment(ReportFragment())
+        }
+    }
 
 
-    override fun onBackPressed() ***REMOVED***
-        if (supportFragmentManager.backStackEntryCount > 0) ***REMOVED***
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
-***REMOVED*** else ***REMOVED***
+        } else {
             super.onBackPressed()
-***REMOVED***
-***REMOVED***
+        }
+    }
 
 
-    private fun showFreshFragment(fragment: Fragment) ***REMOVED***
+    private fun showFreshFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.keyDisplay, fragment)
+            .replace(R.id.key_display, fragment)
             .addToBackStack(null)
             .commit()
-***REMOVED***
-***REMOVED***
+    }
+}
