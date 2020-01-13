@@ -1,5 +1,6 @@
 package com.example.budgetapp.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Matrix
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -34,9 +35,9 @@ class BarcodeScannerFragment: Fragment() {
             270 -> FirebaseVisionImageMetadata.ROTATION_270
             else -> throw Exception("Rotation must be 0, 90, 180, 270")
         }
-
-        override fun analyze(imageProxy: ImageProxy?, rotationDegrees: Int) {
-            val mediaImage = imageProxy?.image
+        @SuppressLint("UnsafeExperimentalUsageError")
+        override fun analyze(image: ImageProxy, rotationDegrees: Int) {
+            val mediaImage = image.image
             val imageRotation = degreesToFirebaseRotation(rotationDegrees)
             if (mediaImage != null) {
                 this.image = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
@@ -143,7 +144,7 @@ class BarcodeScannerFragment: Fragment() {
 //        }
 
         val mia = MyImageAnalyzer()
-        mia.analyze(image, rotationDegrees)
+        mia.analyze(image as ImageProxy, rotationDegrees)
 
 //        val options = FirebaseVisionBarcodeDetectorOptions.Builder()
 //            .build()

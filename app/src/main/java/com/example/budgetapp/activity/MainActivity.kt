@@ -14,15 +14,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportActionBar?.setTitle(R.string.app_name)
-        showFreshFragment(ReportFragment())
 
-        findViewById<BottomNavigationView>(R.id.navbar).setOnNavigationItemSelectedListener {
+        findViewById<BottomNavigationView>(R.id.nav_bar).setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.myWeeklyReport -> showFreshFragment(ReportFragment())
                 R.id.spendingTracker -> showFreshFragment(TransactionTrackerFragment())
                 R.id.newsTipsFeed -> {}
             }
             true
+        }
+
+        if (savedInstanceState == null) {
+            showFreshFragment(ReportFragment())
         }
     }
 
@@ -38,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showFreshFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.keyDisplay, fragment)
+            .replace(R.id.key_display, fragment)
             .addToBackStack(null)
             .commit()
     }

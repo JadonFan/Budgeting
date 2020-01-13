@@ -12,6 +12,11 @@ import com.example.budgetapp.model.SpendingInfo
 class GroupedSpendingListAdapter(private var context: Context?, private var spendingRecord: List<String>,
                                  private var spendingMap: Map<String, SpendingInfo>)
     : BaseExpandableListAdapter() {
+    private class ViewHolder(view: View) {
+        internal val currItemNameText: TextView = view.findViewById(R.id.currItemNameText)
+        internal val currAmountText: TextView = view.findViewById(R.id.currAmountText)
+        internal val currLocationText: TextView = view.findViewById(R.id.currLocationText)
+    }
 
     override fun getGroup(groupPosition: Int): Any {
         return spendingRecord[groupPosition]
@@ -36,17 +41,20 @@ class GroupedSpendingListAdapter(private var context: Context?, private var spen
         val amount: Float = spendingMap.getValue(spendingIdentifier).amount
         val location: String = spendingMap.getValue(spendingIdentifier).location
 
+        val inflater = LayoutInflater.from(context)
         if (convertView == null) {
-            val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.transaction_item_view, parent, false)
+            val holder = ViewHolder(view)
+            view.tag = holder
         }
-        view.findViewById<TextView>(R.id.currItemNameText).apply {
+        val holder = view.tag as ViewHolder
+        holder.currItemNameText.apply {
             text = spendingIdentifier
         }
-        view.findViewById<TextView>(R.id.currAmountText).apply {
+        holder.currAmountText.apply {
             text = amount.toString()
         }
-        view.findViewById<TextView>(R.id.currLocationText).apply {
+        holder.currLocationText.apply {
             text = location
         }
 
@@ -70,8 +78,8 @@ class GroupedSpendingListAdapter(private var context: Context?, private var spen
     ): View {
         var view = convertView ?: View(context)
 
+        val inflater = LayoutInflater.from(context)
         if (convertView == null) {
-            val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.transaction_item_view, parent, false)
         }
 

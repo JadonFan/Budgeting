@@ -9,15 +9,15 @@
         tools:context=".activity.MainActivity">
 
     <LinearLayout
-            android:id="@+id/keyDisplay"
+            android:id="@+id/key_display"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/navbar" />
+            android:layout_above="@id/nav_bar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navbar"
+            android:id="@+id/nav_bar"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

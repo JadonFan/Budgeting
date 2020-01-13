@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.MultiAutoCompleteTextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.budgetapp.R
 import com.example.budgetapp.database.DatabaseManager
@@ -20,7 +20,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
@@ -48,32 +47,49 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val itemNameText = activity?.findViewById<TextInputEditText>(R.id.requestedItemNameText)
-        val amountText = activity?.findViewById<TextInputEditText>(R.id.requestedAmountText)
-        val locationText = activity?.findViewById<TextInputEditText>(R.id.requestedLocationText)
+        val itemNameText = activity?.findViewById<TextInputEditText>(R.id.item_name_edit)
+        val amountText = activity?.findViewById<TextInputEditText>(R.id.item_cost_edit)
+        val locationText = activity?.findViewById<TextInputEditText>(R.id.location_edit)
 
-        activity?.findViewById<ImageView>(R.id.pinpointLocationBtn)!!.setOnClickListener {
+        activity?.findViewById<ImageView>(R.id.pinpoint_location_btn)!!.setOnClickListener {
             val smf = SupportMapFragment()
             smf.getMapAsync(this)
 
-            fragmentManager?.beginTransaction()
+            fragmentManager
+                ?.beginTransaction()
                 ?.replace(R.id.uploadKeyDisplay, smf)
                 ?.addToBackStack(null)
                 ?.commit()
         }
 
-        activity?.findViewById<CustomMaterialButton>(R.id.barcodeOptionBtn)!!.setOnClickListener {
-            fragmentManager?.beginTransaction()
+        activity?.findViewById<CustomMaterialButton>(R.id.barcode_options_btn)!!.setOnClickListener {
+            fragmentManager
+                ?.beginTransaction()
                 ?.replace(R.id.uploadKeyDisplay, BarcodeScannerFragment())
                 ?.addToBackStack(null)
                 ?.commit()
         }
 
         activity?.findViewById<CustomMaterialButton>(R.id.addTransactionBtn)!!.setOnClickListener {
-            val spendingInfo = SpendingInfo(0, itemNameText?.text.toString(),
-                amountText?.text.toString().toFloat(), "", locationText?.text.toString(),
-                Date(), "")
-            RetrieveSpendingRecordTask().execute(RecordInfo(spendingInfo, context as Context))
+            if (amountText!!.text.isNullOrBlank()) {
+                Toast.makeText(context, "Enter a valid amount", Toast.LENGTH_SHORT).show()
+            } else {
+                val spendingInfo = SpendingInfo(
+                    0,
+                    itemNameText!!.text.toString(),
+                    amountText.text.toString().toFloat(),
+                    "",
+                    locationText!!.text.toString(),
+                    Date(),
+                    ""
+                )
+                RetrieveSpendingRecordTask().execute(RecordInfo(spendingInfo, context as Context))
+                fragmentManager
+                    ?.beginTransaction()
+                    ?.replace(R.id.key_display, TransactionTrackerFragment())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
         }
     }
 
@@ -92,10 +108,10 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
         selectedLocation = p0
         println("CLICKED!!!")
         activity?.runOnUiThread {
-            activity?.findViewById<TextInputEditText>(R.id.requestedLocationText)?.setText(
+            activity?.findViewById<TextInputEditText>(R.id.location_edit)?.setText(
                 "${selectedLocation!!.latitude}, ${selectedLocation!!.longitude}"
             )
-            println(activity?.findViewById<TextInputEditText>(R.id.requestedLocationText)?.text.toString())
+            println(activity?.findViewById<TextInputEditText>(R.id.location_edit)?.text.toString())
         }
     }
 }
