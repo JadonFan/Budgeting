@@ -12,11 +12,17 @@ import com.example.budgetapp.R
 import com.example.budgetapp.database.DatabaseManager
 import com.example.budgetapp.util.DateUtils
 import com.example.budgetapp.view.CircularProgressBar
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class ReportFragment: Fragment(), CoroutineScope {
+    private var currSpendAmount = 0f
+    private var targetSpendAmount = 500f
+
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -37,21 +43,25 @@ class ReportFragment: Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var currSpendAmount = 0f
+        val tf: Typeface = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
+
         launch {
             val weekRange = DateUtils.findWeekRange()
             withContext(Dispatchers.IO) {
+                // TODO use repo class
                 currSpendAmount = DatabaseManager(context!!).getSpendingInfoDb()!!.spendingInfoDao().findWeeklySpending(weekRange.lower, weekRange.upper)
+                activity?.runOnUiThread {
+                    view.findViewById<CircularProgressBar>(R.id.weeklySpendingProgress).apply {
+                        progress = currSpendAmount / targetSpendAmount
+                    }
+                    view.findViewById<TextView>(R.id.currWeeklyText).apply {
+                        typeface = tf
+                        text = HtmlCompat.fromHtml(
+                            String.format("Current: <b>$%.2f</b>", currSpendAmount),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY)
+                    }
+                }
             }
-        }
-        val targetSpendAmount = 500f
-
-        val tf: Typeface = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        view.findViewById<TextView>(R.id.currWeeklyText).apply {
-            typeface = tf
-            text = HtmlCompat.fromHtml(
-                String.format("Current: <b>$%.2f</b>", currSpendAmount),
-                HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
         view.findViewById<TextView>(R.id.currTargetText).apply {
             typeface = tf
@@ -66,8 +76,9 @@ class ReportFragment: Fragment(), CoroutineScope {
             text = String.format(getString(R.string.week_order), cal.get(Calendar.WEEK_OF_YEAR))
         }
 
-        val spendingProgress = view.findViewById<CircularProgressBar>(R.id.weeklySpendingProgress)
-        spendingProgress.progress = currSpendAmount / targetSpendAmount
+        if (savedInstanceState == null) {
+            updateWeeklyData()
+        }
     }
 
 
@@ -76,4 +87,27 @@ class ReportFragment: Fragment(), CoroutineScope {
         job.cancel()
     }
 
+
+    /**
+     * TODO use an AlarmManager to schedule the update every 7 days
+     * Intentionally does not work as permissions are set such that READ and WRITE operations are both currently disabled
+      */
+    private fun updateWeeklyData() {
+        val weeklyData = hashMapOf(
+            "week" to DateUtils.findWeekRange(),
+            "year" to GregorianCalendar.YEAR,
+            "spending" to currSpendAmount,
+            "target" to targetSpendAmount
+        )
+        val db = FirebaseFirestore.getInstance()
+        db.collection("weekly_data")
+            .document("${GregorianCalendar.YEAR}${DateUtils.findWeekRange()}")
+            .set(weeklyData)
+            .addOnSuccessListener {
+                println("SUCCESS")
+            }
+            .addOnFailureListener {
+                println("FAILED")
+            }
+    }
 }
