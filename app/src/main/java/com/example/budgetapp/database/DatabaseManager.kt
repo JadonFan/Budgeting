@@ -12,7 +12,7 @@ class DatabaseManager(val context: Context) {
     fun getSpendingInfoDb(): AppDatabase? {
         if (spendingInfoDb == null) {
             spendingInfoDb = Room.databaseBuilder(this.context, AppDatabase::class.java,
-                TransactionTrackerFragment.SPENDING_DB_NAME).build()
+                "spending-record.db").build()
         }
         return spendingInfoDb
     }

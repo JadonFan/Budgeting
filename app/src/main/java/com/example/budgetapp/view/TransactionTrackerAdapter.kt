@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetapp.R
 import com.example.budgetapp.model.SpendingInfo
 
-class RecentTransactionAdapter: ListAdapter<SpendingInfo, RecyclerView.ViewHolder>(DiffCallback()) {
+class TransactionTrackerAdapter: ListAdapter<SpendingInfo, RecyclerView.ViewHolder>(DiffCallback()) {
     companion object {
         class DiffCallback: DiffUtil.ItemCallback<SpendingInfo>() {
             override fun areItemsTheSame(oldItem: SpendingInfo, newItem: SpendingInfo): Boolean {

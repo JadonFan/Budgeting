@@ -28,17 +28,6 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
     private var selectedLocation: LatLng? = null
 
 
-    private data class RecordInfo(val spendingInfo: SpendingInfo, val context: Context)
-
-    private class RetrieveSpendingRecordTask: AsyncTask<RecordInfo, Void, Void>() {
-        override fun doInBackground(vararg params: RecordInfo): Void? {
-            val spendingRecordDb = DatabaseManager(params[0].context).getSpendingInfoDb()
-            spendingRecordDb!!.spendingInfoDao().insertAll(params[0].spendingInfo)
-            return null
-        }
-    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.transaction_upload_layout, container, false)
     }
@@ -47,11 +36,11 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val itemNameText = activity?.findViewById<TextInputEditText>(R.id.item_name_edit)
-        val amountText = activity?.findViewById<TextInputEditText>(R.id.item_cost_edit)
-        val locationText = activity?.findViewById<TextInputEditText>(R.id.location_edit)
+        val itemNameText = view.findViewById<TextInputEditText>(R.id.item_name_edit)
+        val amountText = view.findViewById<TextInputEditText>(R.id.item_cost_edit)
+        val locationText = view.findViewById<TextInputEditText>(R.id.location_edit)
 
-        activity?.findViewById<ImageView>(R.id.pinpoint_location_btn)!!.setOnClickListener {
+        view.findViewById<ImageView>(R.id.pinpoint_location_btn)!!.setOnClickListener {
             val smf = SupportMapFragment()
             smf.getMapAsync(this)
 
@@ -62,7 +51,7 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
                 ?.commit()
         }
 
-        activity?.findViewById<CustomMaterialButton>(R.id.barcode_options_btn)!!.setOnClickListener {
+        view.findViewById<CustomMaterialButton>(R.id.barcode_options_btn)!!.setOnClickListener {
             fragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.uploadKeyDisplay, BarcodeScannerFragment())
@@ -70,20 +59,23 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
                 ?.commit()
         }
 
-        activity?.findViewById<CustomMaterialButton>(R.id.addTransactionBtn)!!.setOnClickListener {
-            if (amountText!!.text.isNullOrBlank()) {
-                Toast.makeText(context, "Enter a valid amount", Toast.LENGTH_SHORT).show()
+        view.findViewById<CustomMaterialButton>(R.id.addTransactionBtn)!!.setOnClickListener {
+            if (amountText?.text.isNullOrBlank()) {
+                Toast.makeText(context, getString(R.string.enter_valid_money), Toast.LENGTH_SHORT).show()
             } else {
                 val spendingInfo = SpendingInfo(
                     0,
-                    itemNameText!!.text.toString(),
-                    amountText.text.toString().toFloat(),
+                    itemNameText?.text.toString(),
+                    amountText?.text.toString().toFloat(),
                     "",
-                    locationText!!.text.toString(),
+                    locationText?.text.toString(),
                     Date(),
                     ""
                 )
-                RetrieveSpendingRecordTask().execute(RecordInfo(spendingInfo, context as Context))
+                Thread {
+                    val spendingRecordDb = DatabaseManager(context!!).getSpendingInfoDb()
+                    spendingRecordDb!!.spendingInfoDao().insertAll(spendingInfo)
+                }.start()
                 fragmentManager
                     ?.beginTransaction()
                     ?.replace(R.id.key_display, TransactionTrackerFragment())
@@ -106,10 +98,9 @@ class TransactionUploadFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMap
     @SuppressLint("SetTextI18n")
     override fun onMapClick(p0: LatLng?) {
         selectedLocation = p0
-        println("CLICKED!!!")
         activity?.runOnUiThread {
             activity?.findViewById<TextInputEditText>(R.id.location_edit)?.setText(
-                "${selectedLocation!!.latitude}, ${selectedLocation!!.longitude}"
+                "${selectedLocation?.latitude}, ${selectedLocation?.longitude}"
             )
             println(activity?.findViewById<TextInputEditText>(R.id.location_edit)?.text.toString())
         }

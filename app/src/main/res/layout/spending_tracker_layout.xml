@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,10 +18,13 @@
             android:layout_height="match_parent"
             android:visibility="gone"/>
 
-    <include
-            layout="@layout/transaction_add_request"
-            android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/uploadTransactionBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
+            android:layout_margin="@dimen/full_left_right_button_margin"
+            app:srcCompat="@drawable/calculator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

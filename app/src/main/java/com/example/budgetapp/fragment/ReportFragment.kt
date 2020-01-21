@@ -1,10 +1,7 @@
 package com.example.budgetapp.fragment
 
-import android.content.Context
 import android.graphics.Typeface
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +12,18 @@ import com.example.budgetapp.R
 import com.example.budgetapp.database.DatabaseManager
 import com.example.budgetapp.util.DateUtils
 import com.example.budgetapp.view.CircularProgressBar
+import kotlinx.coroutines.*
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
-class ReportFragment: Fragment() {
+class ReportFragment: Fragment(), CoroutineScope {
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,18 +33,17 @@ class ReportFragment: Fragment() {
     }
 
 
-    private class FindWeeklySpendingTask: AsyncTask<Context, Void, Float>() {
-        override fun doInBackground(vararg params: Context?): Float {
-            val weekRange: Range<Date> = DateUtils.findWeekRange()
-            return DatabaseManager(params[0] as Context).getSpendingInfoDb()!!.spendingInfoDao()
-                .findWeeklySpending(weekRange.lower, weekRange.upper)
-        }
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val currSpendAmount = FindWeeklySpendingTask().execute(context).get()
+
+        var currSpendAmount = 0f
+        launch {
+            val weekRange = DateUtils.findWeekRange()
+            withContext(Dispatchers.IO) {
+                currSpendAmount = DatabaseManager(context!!).getSpendingInfoDb()!!.spendingInfoDao().findWeeklySpending(weekRange.lower, weekRange.upper)
+            }
+        }
         val targetSpendAmount = 500f
 
         val tf: Typeface = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
@@ -64,4 +69,11 @@ class ReportFragment: Fragment() {
         val spendingProgress = view.findViewById<CircularProgressBar>(R.id.weeklySpendingProgress)
         spendingProgress.progress = currSpendAmount / targetSpendAmount
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
 }

@@ -1,7 +1,5 @@
 package com.example.budgetapp.fragment
 
-import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +10,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetapp.R
-import com.example.budgetapp.view.RecentTransactionAdapter
+import com.example.budgetapp.view.TransactionTrackerAdapter
 import com.example.budgetapp.viewmodel.TransactionViewModel
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TransactionTrackerFragment: Fragment() {
-    companion object {
-        const val SPENDING_DB_NAME = "spending-record.db"
-    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.spending_tracker_layout, container, false)
     }
@@ -33,16 +26,18 @@ class TransactionTrackerFragment: Fragment() {
         val tvm: TransactionViewModel by lazy {
             ViewModelProviders.of(this).get(TransactionViewModel::class.java)
         }
-        val recentTransactionAdapter = RecentTransactionAdapter()
-        tvm.getTransactions().observe(viewLifecycleOwner, Observer { recentTransactionAdapter.submitList(it) })
+        val transactionTrackerAdapter = TransactionTrackerAdapter()
+        tvm.getTransactions()!!.observe(viewLifecycleOwner, Observer {
+            transactionTrackerAdapter.submitList(it)
+        })
 
         view.findViewById<RecyclerView>(R.id.transactionSpendingList).apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = recentTransactionAdapter
+            adapter = transactionTrackerAdapter
             addItemDecoration(DividerItemDecoration(context, (layoutManager as LinearLayoutManager).layoutDirection))
         }
 
-        view.findViewById<MaterialButton>(R.id.addTransactionBtn).setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.uploadTransactionBtn).setOnClickListener {
             fragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.key_display, TransactionUploadFragment())

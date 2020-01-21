@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="std_menu_text_size">15sp</dimen>
+    <dimen name="std_menu_text_size">16sp</dimen>
     <dimen name="std_text_edit_spacing">8dp</dimen>
-    <dimen name="std_form_item_spacing">5dp</dimen>
+    <dimen name="std_form_item_spacing">8dp</dimen>
 
-    <dimen name="full_left_right_button_margin">5dp</dimen>
+    <dimen name="full_left_right_button_margin">8dp</dimen>
 </resources>

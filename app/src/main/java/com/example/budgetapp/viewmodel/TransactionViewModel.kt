@@ -8,18 +8,14 @@ import androidx.lifecycle.MutableLiveData
 import com.example.budgetapp.database.DatabaseManager
 import com.example.budgetapp.model.SpendingInfo
 
+// TODO load in repository class
 class TransactionViewModel(val app: Application) : AndroidViewModel(app) {
-    private val transactions: MutableLiveData<List<SpendingInfo>> by lazy {
-        MutableLiveData<List<SpendingInfo>>().also {
-            loadTransactions()
+    private var liveTransactions: LiveData<List<SpendingInfo>>? = null
+    
+    fun getTransactions(): LiveData<List<SpendingInfo>>? {
+        if (liveTransactions == null) {
+            liveTransactions = DatabaseManager(app.applicationContext).getSpendingInfoDb()!!.spendingInfoDao().getAll()
         }
-    }
-
-    fun getTransactions(): LiveData<List<SpendingInfo>> {
-        return transactions
-    }
-
-    private fun loadTransactions(): LiveData<List<SpendingInfo>> {
-        return DatabaseManager(app.applicationContext).getSpendingInfoDb()!!.spendingInfoDao().getAll()
+        return liveTransactions
     }
 }
