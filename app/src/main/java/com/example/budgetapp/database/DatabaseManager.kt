@@ -2,18 +2,19 @@ package com.example.budgetapp.database
 
 import android.content.Context
 import androidx.room.Room
-import com.example.budgetapp.fragment.TransactionTrackerFragment
 
 class DatabaseManager(val context: Context) {
     private companion object Spender {
-        var spendingInfoDb: AppDatabase? = null
+        var spendingDb: AppDatabase? = null
     }
 
-    fun getSpendingInfoDb(): AppDatabase? {
-        if (spendingInfoDb == null) {
-            spendingInfoDb = Room.databaseBuilder(this.context, AppDatabase::class.java,
-                "spending-record.db").build()
+    fun getSpendingInfoDb(): AppDatabase {
+        if (spendingDb == null) {
+            spendingDb = Room
+                .databaseBuilder(this.context, AppDatabase::class.java, "spending-record.db")
+                .fallbackToDestructiveMigration()
+                .build()
         }
-        return spendingInfoDb
+        return spendingDb!!
     }
 }
