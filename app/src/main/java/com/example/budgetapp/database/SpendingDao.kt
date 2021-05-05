@@ -23,8 +23,8 @@ interface SpendingDao {
     fun findWeeklySpending(from: Date, to: Date): Observable<Float>
 
     @Insert
-    fun insertAll(vararg spending: Spending)
+    suspend fun insertAll(vararg spending: Spending)
 
     @Delete
-    fun delete(spending: Spending)
+    suspend fun delete(spending: Spending)
 }

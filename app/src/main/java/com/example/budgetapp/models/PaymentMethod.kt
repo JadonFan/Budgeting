@@ -12,7 +12,5 @@ enum class PaymentMethod(private val category: Int) {
     OTHER(6)
     ;
 
-    fun getCategory(): Int {
-        return category
-    }
+    fun getCategory() = category
 }

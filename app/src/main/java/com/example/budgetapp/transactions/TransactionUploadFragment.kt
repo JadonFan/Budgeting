@@ -90,10 +90,10 @@ class TransactionUploadFragment: BaseMvRxFragment(), OnMapReadyCallback, GoogleM
     override fun onMapClick(p0: LatLng?) {
         selectedLocation = p0
         requireActivity().runOnUiThread {
-            requireActivity().findViewById<TextInputEditText>(R.id.location_edit)?.setText(
-                "${selectedLocation?.latitude}, ${selectedLocation?.longitude}"
-            )
-            Timber.i(activity?.findViewById<TextInputEditText>(R.id.location_edit)?.text.toString())
+            requireActivity().findViewById<TextInputEditText>(R.id.location_edit)!!.let {
+                it.setText("${selectedLocation?.latitude}, ${selectedLocation?.longitude}")
+                Timber.i(it.text.toString())
+            }
         }
     }
 

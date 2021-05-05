@@ -8,9 +8,8 @@ import javax.inject.Inject
 
 class HomeRepository @Inject constructor(
     private val db: AppDatabase,
-) {
-
     private val fs: FirebaseFirestore = FirebaseFirestore.getInstance()
+) {
 
     fun getCurrSpendingAmount(from: Date, to: Date) =
         db.spendingDao().findWeeklySpending(from, to)

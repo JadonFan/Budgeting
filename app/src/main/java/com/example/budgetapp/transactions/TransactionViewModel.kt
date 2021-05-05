@@ -1,5 +1,6 @@
 package com.example.budgetapp.transactions
 
+import androidx.lifecycle.viewModelScope
 import com.airbnb.mvrx.*
 import com.example.budgetapp.database.DatabaseManager
 import com.example.budgetapp.home.HomeState
@@ -8,6 +9,7 @@ import com.example.budgetapp.models.Spending
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class TransactionViewModel @AssistedInject constructor(
@@ -37,7 +39,10 @@ class TransactionViewModel @AssistedInject constructor(
             Date(),
             ""
         )
-        transactionRepository.addNewTransaction(spending)
+        viewModelScope.launch {
+            transactionRepository.addNewTransaction(spending)
+            getTransactions()
+        }
     }
 
     @AssistedInject.Factory
@@ -46,12 +51,12 @@ class TransactionViewModel @AssistedInject constructor(
     }
 
     companion object : MvRxViewModelFactory<TransactionViewModel, TransactionState> {
-        override fun create(viewModelContext: ViewModelContext,
-                            state: TransactionState): TransactionViewModel? {
-            return TransactionViewModel(
-                state,
-                TransactionRepository(DatabaseManager(viewModelContext.activity).getSpendingInfoDb())
-            )
-        }
+        override fun create(
+            viewModelContext: ViewModelContext,
+            state: TransactionState
+        ) = TransactionViewModel(
+            state,
+            TransactionRepository(DatabaseManager(viewModelContext.activity).getSpendingInfoDb())
+        )
     }
 }

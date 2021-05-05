@@ -35,13 +35,12 @@ class HomeViewModel @AssistedInject constructor(
     }
 
     companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {
-        override fun create(viewModelContext: ViewModelContext,
-                            state: HomeState
-        ): HomeViewModel? {
-            return HomeViewModel(
-                state,
-                HomeRepository(DatabaseManager(viewModelContext.activity).getSpendingInfoDb())
-            )
-        }
+        override fun create(
+            viewModelContext: ViewModelContext,
+            state: HomeState
+        ) = HomeViewModel(
+            state,
+            HomeRepository(DatabaseManager(viewModelContext.activity).getSpendingInfoDb())
+        )
     }
 }
