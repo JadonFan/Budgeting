@@ -2,10 +2,11 @@ package com.example.budgetapp.home
 
 import com.airbnb.mvrx.*
 import com.example.budgetapp.database.DatabaseManager
-import com.example.budgetapp.util.DateUtils
+import com.example.budgetapp.util.findWeekRange
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class HomeViewModel @AssistedInject constructor(
     @Assisted initialState: HomeState,
@@ -20,7 +21,7 @@ class HomeViewModel @AssistedInject constructor(
     private fun getCurrSpendingAmount() = withState { state ->
         if (state.currSpendingAmount is Loading) return@withState
 
-        val weekRange = DateUtils.findWeekRange()
+        val weekRange = Calendar.getInstance().findWeekRange()
         homeRepository.getCurrSpendingAmount(weekRange.lower, weekRange.upper)
             .subscribeOn(Schedulers.io())
             .execute { copy(currSpendingAmount = it) }

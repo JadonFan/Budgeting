@@ -4,16 +4,13 @@ import android.util.Range
 import com.example.budgetapp.database.Converters
 import java.util.*
 
-object DateUtils {
-    fun findWeekRange(): Range<Date> {
-        val c = Calendar.getInstance()
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-        c.set(Calendar.HOUR_OF_DAY, 0)
-        c.set(Calendar.MINUTE, 0)
-        c.set(Calendar.SECOND, 0)
-        val lastSunday: Date = Converters().fromTimestamp(c.timeInMillis)
-        c.add(Calendar.DATE, 7)
-        val nextSunday: Date = Converters().fromTimestamp(c.timeInMillis)
-        return Range(lastSunday, nextSunday)
-    }
+fun Calendar.findWeekRange(): Range<Date> {
+    set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+    val lastSunday: Date = Converters().fromTimestamp(timeInMillis)
+    add(Calendar.DATE, 7)
+    val nextSunday: Date = Converters().fromTimestamp(timeInMillis)
+    return Range(lastSunday, nextSunday)
 }

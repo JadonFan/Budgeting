@@ -21,7 +21,7 @@ import com.google.android.material.textfield.TextInputEditText
 import timber.log.Timber
 import javax.inject.Inject
 
-class TransactionUploadFragment: BaseMvRxFragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
+class TransactionUploadFragment: BaseMvRxFragment(), OnMapReadyCallback {
 
     private var map: GoogleMap? = null
     private var selectedLocation: LatLng? = null
@@ -30,9 +30,12 @@ class TransactionUploadFragment: BaseMvRxFragment(), OnMapReadyCallback, GoogleM
     lateinit var tvmFractory: TransactionViewModel.Factory
     private val tvm: TransactionViewModel by fragmentViewModel(TransactionViewModel::class)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.transaction_upload_fragment, container, false)
-    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View =
+        inflater.inflate(R.layout.transaction_upload_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,7 +69,7 @@ class TransactionUploadFragment: BaseMvRxFragment(), OnMapReadyCallback, GoogleM
             } else {
                 tvm.addNewTransaction(
                     itemNameText?.text.toString(),
-                    amountText?.text.toString().toFloat(),
+                    amountText?.text.toString().toFloatOrNull() ?: Float.NaN,
                     locationText?.text.toString()
                 )
                 parentFragmentManager
@@ -79,15 +82,16 @@ class TransactionUploadFragment: BaseMvRxFragment(), OnMapReadyCallback, GoogleM
     }
 
     override fun onMapReady(p0: GoogleMap?) {
-        map = p0
-        val toronto = LatLng(43.65, -79.38)
-        map?.addMarker(MarkerOptions().position(toronto).title("Your Current Location"))
-        map?.moveCamera(CameraUpdateFactory.newLatLng(toronto))
-        map?.setOnMapClickListener(this)
+        map = p0?.apply {
+            val toronto = LatLng(43.65, -79.38)
+            addMarker(MarkerOptions().position(toronto).title("Your Current Location"))
+            moveCamera(CameraUpdateFactory.newLatLng(toronto))
+            setOnMapClickListener(::onMapClick)
+        }
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onMapClick(p0: LatLng?) {
+    fun onMapClick(p0: LatLng?) {
         selectedLocation = p0
         requireActivity().runOnUiThread {
             requireActivity().findViewById<TextInputEditText>(R.id.location_edit)!!.let {
