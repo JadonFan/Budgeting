@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-    <com.example.budgetapp.components.CustomMaterialButton
+    <com.budget.budget.ui.common.CustomMaterialButton
             android:id="@+id/addTransactionBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -7,11 +7,14 @@
     <string name="report">Report</string>
     <string name="tracker">Tracker</string>
     <string name="amount">Amount</string>
-    <string name="dollar_money_format">$%.2f</string>
-    <string name="week_order">Week %d</string>
+    <string name="week_order" comment="$0 the week number within the current calendar year">Week %d</string>
     <string name="delete">Delete</string>
     <string name="confirm_delete">Confirm Delete</string>
     <string name="delete_transaction_ask">Are you sure you want to remove this transaction?</string>
+
+    <!-- budget summary -->
+    <string name="target_spending" comment="$0 money amount with currency symbol">Target: <b>%s</b></string>
+    <string name="current_spending" comment="$0 money amount with currency symbol">Current: <b>%s</b></string>
 
     <!-- transaction upload -->
     <string name="add_transaction">Add Transaction</string>
@@ -22,6 +25,9 @@
     <string name="map_exact_pinpoint">pinpoint location on Google Maps</string>
     <string name="dollar_sign">$</string>
     <string name="enter_valid_money">Enter a valid amount</string>
+
+    <!-- google maps -->
+    <string name="map_coordinates" comment="$0 latitude, $1 longitude">%f, %f</string>
 
     <string name="news_amp_tips"><![CDATA[News & Tips]]></string>
 </resources>
